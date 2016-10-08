@@ -1,4 +1,5 @@
-#FSND Design A Game - snake, water, gun
+#Design A Game - snake, water, gun
+*** Play and test @ https://snakewatergun.appspot.com/_ah/api/explorer
 
 ## Set-Up Instructions:
 1.  Update the value of application in app.yaml to the app ID you have registered
