@@ -4,32 +4,51 @@ This can also contain game logic. For more complex games it would be wise to
 move game logic to another file. Ideally the API will be simple, concerned
 primarily with communication to/from the API's users."""
 
-
 import random
-import logging
 import endpoints
-from protorpc import remote, messages
-from google.appengine.api import memcache
-from google.appengine.api import taskqueue
+from protorpc import (
+    remote,
+    messages
+)
+from google.appengine.api import (
+    memcache,
+    taskqueue
+)
 
-from models import User, Game, Score
-from models import StringMessage,GameForm,GameForms,NewGameForm,MakeMoveForm,ScoreForms,UserForms,HistoryForm  #noqa
+from models import (
+    User,
+    Game,
+    Score
+)
+from models import (
+    StringMessage,
+    GameForm,
+    GameForms,
+    NewGameForm,
+    MakeMoveForm,
+    ScoreForms,
+    UserForms,
+    HistoryForm
+)
 from utils import get_by_urlsafe
 
 NEW_GAME_REQUEST = endpoints.ResourceContainer(NewGameForm)
 GET_GAME_REQUEST = endpoints.ResourceContainer(
-        urlsafe_game_key=messages.StringField(1),)
+    urlsafe_game_key=messages.StringField(1),)
 MAKE_MOVE_REQUEST = endpoints.ResourceContainer(
     MakeMoveForm,
     urlsafe_game_key=messages.StringField(1),)
-USER_REQUEST = endpoints.ResourceContainer(user_name=messages.StringField(1),
-                                           email=messages.StringField(2))
+USER_REQUEST = endpoints.ResourceContainer(
+    user_name=messages.StringField(1),
+    email=messages.StringField(2)
+    )
 GET_HIGH_SCORES_REQUEST = endpoints.ResourceContainer(
-                          number_of_results=messages.IntegerField(1),)
+    number_of_results=messages.IntegerField(1),)
 
 
 @endpoints.api(name='snake_water_gunApi', version='v1')
 class snake_water_gunApi(remote.Service):
+
     """Game API"""
     @endpoints.method(request_message=USER_REQUEST,
                       response_message=StringMessage,
@@ -40,11 +59,11 @@ class snake_water_gunApi(remote.Service):
         """Create a User. Requires a unique username"""
         if User.query(User.name == request.user_name).get():
             raise endpoints.ConflictException(
-                    'A User with that name already exists!')
+                'A User with that name already exists!')
         user = User(name=request.user_name, email=request.email)
         user.put()
         return StringMessage(message='User {} created!'.format(
-                request.user_name))
+            request.user_name))
 
     @endpoints.method(request_message=NEW_GAME_REQUEST,
                       response_message=GameForm,
@@ -56,7 +75,7 @@ class snake_water_gunApi(remote.Service):
         user = User.query(User.name == request.user_name).get()
         if not user:
             raise endpoints.NotFoundException(
-                    'A User with that name does not exist!')
+                'A User with that name does not exist!')
         game = Game.new_game(user.key)
 
         return game.to_form('Hey! We are sensing you as a pro of Snake Water Gun')  # noqa
@@ -149,7 +168,7 @@ class snake_water_gunApi(remote.Service):
         user = User.query(User.name == request.user_name).get()
         if not user:
             raise endpoints.NotFoundException(
-                      'A User with that name does not exist!')
+                'A User with that name does not exist!')
         games = Game.query(Game.user == user.key)
         games = games.filter(Game.game_over == False)
         if games.count() > 0:
