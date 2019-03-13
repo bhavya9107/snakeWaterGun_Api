@@ -13,7 +13,7 @@
 
         /Google\ Chrome --user-data-dir=test --unsafely-treat-insecure-origin-as-secure=http://localhost:8080
 
-##Game Description:
+## Game Description:
 Challenge a sophisticated computer with your favorite hand! You can choose from
 either `snake`, `water`, or `gun`. If you and the computer both choose the
 same hand, you will get a "tie" and it doesn't count towards any points, and it
@@ -25,7 +25,7 @@ Many different snake water gun games can be played by many different Users
 at any given time. Each game can be retrieved or played by using the path parameter
 `urlsafe_game_key`.
 
-##Files Included:
+## Files Included:
  - api.py: Contains endpoints and game playing logic.
  - app.yaml: App configuration.
  - cron.yaml: Cronjob configuration.
@@ -33,7 +33,7 @@ at any given time. Each game can be retrieved or played by using the path parame
  - models.py: Entity and message definitions including helper methods.
  - utils.py: Helper function for retrieving ndb.Models by urlsafe Key string.
 
-##Endpoints Included:
+## Endpoints Included:
  - **create_user**
     - Path: 'user'
     - Method: POST
@@ -111,7 +111,7 @@ at any given time. Each game can be retrieved or played by using the path parame
     - Returns: UserForms
     - Description: Get the rankings of each player. Ordered by the winning percentage.
 
-##Models Included:
+## Models Included:
  - **User**
     - Stores unique user_name and (optional) email address.
 
@@ -121,7 +121,7 @@ at any given time. Each game can be retrieved or played by using the path parame
  - **Score**
     - Records completed games. Associated with Users model via KeyProperty.
 
-##Forms Included:
+## Forms Included:
  - **GameForm**
     - Representation of a Game's state (urlsafe_key, game_over flag, message, user_name).
  - **NewGameForm**
