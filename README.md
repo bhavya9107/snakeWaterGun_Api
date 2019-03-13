@@ -1,4 +1,4 @@
-#Design A Game - snake, water, gun
+# Design A Game - snake, water, gun
 ` Play and test @ https://snakewatergun.appspot.com/_ah/api/explorer `
 
 ## Set-Up Instructions:
